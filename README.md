@@ -1,1 +1,1 @@
-Moozicore Crowdsale contract
+Moozicore TokenSale Contract
