@@ -1,7 +1,5 @@
 pragma solidity ^0.4.18;
 
-// Moozicore Crowdsale contract
-
 // File: zeppelin-solidity/contracts/ownership/Ownable.sol
 
 /**
