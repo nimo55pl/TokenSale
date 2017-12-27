@@ -408,6 +408,8 @@ contract Moozicore is Crowdsale {
     uint256 public startTime;
     uint256 public endTime;
 
+    uint256 public totalSupplyIco;
+
     function Moozicore (
         uint256 _startTime,
         uint256 _endTime,
@@ -446,7 +448,7 @@ contract Moozicore is Crowdsale {
         }
 
         if (now >= 1533110400) {
-            if (token.totalSupply().add(msg.value.mul(getRate())) >= CAP_ICO_SALE) {
+            if (totalSupplyIco.add(msg.value.mul(getRate())) >= CAP_ICO_SALE) {
                 return false;
             }
         }
@@ -464,6 +466,10 @@ contract Moozicore is Crowdsale {
 
         token.mint(beneficiary, tokens);
         TokenPurchase(msg.sender, beneficiary, weiAmount, tokens);
+
+        if (now >= 1533110400) {
+            totalSupplyIco = totalSupplyIco.add(tokens);
+        }
 
         forwardFunds();
     }
@@ -501,10 +507,10 @@ contract Moozicore is Crowdsale {
         }
 
         if (now > 1517266799) {
-            require(token.totalSupply().add(t) < CAP_ICO_SALE);
+            require(totalSupplyIco.add(t) < CAP_ICO_SALE);
+            totalSupplyIco = totalSupplyIco.add(t);
         }
 
         token.mint(walletToMint, t);
     }
 }
-
